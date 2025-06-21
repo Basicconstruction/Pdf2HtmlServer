@@ -21,7 +21,7 @@ public class Pdf2HtmlController:Controller
 
     // html 下载head
     [HttpHead("html/download/{guid}")]
-    public IActionResult HttpHead(string guid)
+    public IActionResult HttpHead(string guid,string fileName)
     {
         // 构建文件的完整路径
         var fullPath = Path.Combine(AuthRef.HtmlStoragePath, $"{guid}.html");
@@ -42,7 +42,7 @@ public class Pdf2HtmlController:Controller
     
     // 通过guid 下载html文件
     [HttpGet("html/download/{guid}")]
-    public IActionResult Download(string guid)
+    public IActionResult Download(string guid,string fileName)
     {
         // 构建文件的完整路径
         var fullPath = Path.Combine(AuthRef.HtmlStoragePath, $"{guid}.html");
@@ -69,7 +69,7 @@ public class Pdf2HtmlController:Controller
             Response.Headers.Append("Accept-Ranges", "bytes");
             Response.Headers.Append("Content-Range", $"bytes {startByte}-{endByte}/{fileSize}");
             Response.Headers.Append("Content-Type", MimeTypesMap.GetMimeType(fullPath));
-            Response.Headers.Append("Content-Disposition", $"attachment; filename=\"{Path.GetFileName($"{guid}.html")}\"");
+            Response.Headers.Append("Content-Disposition", $"attachment; filename=\"{Path.GetFileName($"{fileName}")}\"");
 
             // 设置响应内容
             var fileStream = new FileStream(fullPath, FileMode.Open, FileAccess.Read, FileShare.Read);
@@ -94,7 +94,7 @@ public class Pdf2HtmlController:Controller
 
         // 设置响应头部
         Response.Headers.Append("Accept-Ranges", "bytes");
-        Response.Headers.Append("Content-Disposition", $"attachment; filename=\"{Path.GetFileName($"{guid}.html")}\"");
+        Response.Headers.Append("Content-Disposition", $"attachment; filename=\"{Path.GetFileName($"{fileName}")}\"");
         Response.Headers.Append("Content-Type", MimeTypesMap.GetMimeType(fullPath));
         Response.Headers.Append("Content-Range", $"bytes {0}-{fileSize-1}/{fileSize}");
         // 设置响应内容
