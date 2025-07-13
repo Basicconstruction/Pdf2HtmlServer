@@ -4,13 +4,16 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllers();
-builder.Services.Configure<AuthRef>(conf =>
+builder.Services.Configure<RunConfiguration>(conf =>
     {
         var configuration = builder.Configuration;
         conf.AuthKey = configuration["AuthKey"]??"";
         conf.HtmlStoragePath = configuration["HtmlStoragePath"]??"";
         conf.PdfStoragePath = configuration["PdfStoragePath"]??"";
-        conf.RunPath = configuration["RunPath"]??"";
+        conf.Pdf2HtmlEXRunPath = configuration["Pdf2HtmlEXRunPath"]??"";
+        conf.CSVStoragePath = configuration["CsvStoragePath"]??"";
+        conf.Html2LayoutMeasurePath = configuration["Html2LayoutMeasurePath"]??"";
+        conf.Node = configuration["NodePath"]??"";
     })
     ;
 builder.WebHost.ConfigureKestrel(options =>

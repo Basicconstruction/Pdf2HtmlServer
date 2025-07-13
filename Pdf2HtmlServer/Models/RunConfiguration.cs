@@ -1,5 +1,5 @@
 ﻿namespace Pdf2HtmlServer.Models;
-public class AuthRef
+public class RunConfiguration
 {
     public string AuthKey
     {
@@ -7,7 +7,7 @@ public class AuthRef
         set;
     }
 
-    public string RunPath
+    public string Pdf2HtmlEXRunPath
     {
         get;
         set;
@@ -24,4 +24,22 @@ public class AuthRef
         get;
         set;
     }
+
+    public string Html2LayoutMeasurePath
+    {
+        get;
+        set;
+    }
+    public string CSVStoragePath
+    {
+        get;
+        set;
+    }
+
+    public string Node
+    {
+        get;
+        set;
+    }
+    
 }
